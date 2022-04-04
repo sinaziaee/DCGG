@@ -14,6 +14,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from torch_geometric.data import Data
+import pathlib
 
 
 
@@ -411,7 +412,7 @@ def predict_new_edges(all_prob_adj_list, data):
           all_new_pairs.append(edge)
   return all_new_pairs
 
-def plotter(scores, method_names, colors):
+def plotter(scores, method_names, colors, base_dir = str(pathlib.Path().resolve().parent)):
   plt.figure(figsize=(30, 6))
 
   d = {'models': method_names, 'values': scores}
@@ -435,6 +436,8 @@ def plotter(scores, method_names, colors):
 
   plt.ylim(0.7, 0.99)
   plt.grid()
+  plt.savefig(f'{base_dir}/output_figs/barplot_comparison.eps', format='eps')
+  plt.savefig(f'{base_dir}/output_figs/barplot_comparison.png', dpi=500)
   plt.show()
 
 def all_features_graph_data(final_in_df, df_list, all_df):
@@ -694,3 +697,62 @@ def decoding_drug_ids():
         drug = list(drug)
         drug_names[drug[0]] = drug[1]
     return drug_names
+
+def heatmap_comparion_visualization(all_te_list, base_dir):
+  model_names = ['M1(GCN)', 'M2(SAGE)', 'M3(GAT)', 'M4(SAGE-GCN)', 'M5(GAT-SAGE)', 'M6(GCN-GAT)', 'ave-of-models']
+  feature_names = ['drug-target', 'word2vec', 'nord2vec', 'figerprint', 'indication', 'side-effect', 'all-features', 'ave-of-features']
+  method_names = []
+  all_test = []
+
+  ave_list = []
+  for i in range(len(all_te_list)):
+      ave = 0
+      for j in range(len(all_te_list[0])):
+          ave += all_te_list[i][j]
+      ave = ave / len(all_te_list[0])
+      ave_list.append(ave)
+  # calculating average on the models
+  ave_list = []
+  scores = []
+  for i in range(len(all_te_list)):
+      ave = 0
+      for j in range(len(all_te_list[0])):
+          ave += all_te_list[i][j]
+      ave = ave / len(all_te_list[0])
+      ave_list.append(ave)
+  # printing models in a table visualization
+  print(' '* 15, end='')
+  for i, name in enumerate(model_names):
+      print(f'{name:^15}', end='')
+  print()
+  for i in range(len(all_te_list)):
+      model = feature_names[i]
+      print(f'{feature_names[i]:^15}', end='')
+      scores_list = []
+      for j in range(len(all_te_list[0])):
+          string = float("{:.3f}".format(all_te_list[i][j]))
+          all_test.append(string)
+          feature = model_names[j]
+          print(f'{string:^15}' , end='')
+          method_names.append(f'{feature} on {model}')
+          scores_list.append(string)
+      # scores_list.append(ave_list[i])
+      scores.append(scores_list)
+      print()
+  # barplot visualization
+  scores = np.array(scores)
+  scores = np.reshape(scores, (8, 7))
+  # computing overall score
+  cmap = sns.cm.rocket_r
+
+  plt.figure(figsize=(14, 12))
+  ax = sns.heatmap(scores, annot=True, cmap=cmap)
+  ax.set_xticklabels(model_names)
+  ax.set_yticklabels(feature_names)
+
+  if 'output_figs' not in os.listdir(base_dir):
+      os.mkdir(f'{base_dir}/output_figs/')
+
+  plt.savefig(f'{base_dir}/output_figs/heatmap_result.eps', format='eps')
+  plt.savefig(f'{base_dir}/output_figs/heatmap_result.png', dpi=500)
+  plt.show()

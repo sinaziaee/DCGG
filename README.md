@@ -1,3 +1,3 @@
-# Source Code of DComG paper
+# Source Code of DCGG paper
 
-## DComG: Drug Combination prediction by applying GNNs on DDI node2vec 
+## DCGG: Drug Combination prediction using GNN and GAE 

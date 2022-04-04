@@ -75,61 +75,6 @@ class Net(torch.nn.Module):
       x = x.relu()
       x = dropout(x, p=0.5, training=self.training)
       x = self.conv3(x, edge_index)
-    ####################################################
-    # elif index == 6:
-    #   x = self.conv1(x, edge_index)
-    #   x = x.relu()
-    #   x = dropout(x, p=0.5, training=self.training)
-    #   x = self.conv3(x, edge_index)
-    elif index == 7:
-      x = self.conv1(x, edge_index)
-      x = x.relu()
-      x = dropout(x, p=0.5, training=self.training)
-      x = self.conv3(x, edge_index)
-    elif index == 8:
-      x = self.conv1(x, edge_index)
-      x = x.relu()
-      x = dropout(x, p=0.5, training=self.training)
-      x = self.conv2(x, edge_index)
-      x = x.relu()
-      x = dropout(x, p=0.5, training=self.training)
-      x = self.conv3(x, edge_index)
-    elif index == 9:
-      x = self.conv1(x, edge_index)
-      x = x.relu()
-      x = dropout(x, p=0.5, training=self.training)
-      for i in range(2):
-        x = self.conv2(x, edge_index)
-        x = x.relu()
-      x = dropout(x, p=0.5, training=self.training)
-      x = self.conv3(x, edge_index)
-    elif index == 10:
-      x = self.conv1(x, edge_index)
-      x = x.relu()
-      x = dropout(x, p=0.5, training=self.training)
-      for i in range(3):
-        x = self.conv2(x, edge_index)
-        x = x.relu()
-      x = dropout(x, p=0.5, training=self.training)
-      x = self.conv3(x, edge_index)
-    elif index == 11:
-      x = self.conv1(x, edge_index)
-      x = x.relu()
-      x = dropout(x, p=0.5, training=self.training)
-      for i in range(4):
-        x = self.conv2(x, edge_index)
-        x = x.relu()
-      x = dropout(x, p=0.5, training=self.training)
-      x = self.conv3(x, edge_index)
-    elif index == 12:
-      x = self.conv1(x, edge_index)
-      x = x.relu()
-      x = dropout(x, p=0.5, training=self.training)
-      for i in range(10):
-        x = self.conv2(x, edge_index)
-        x = x.relu()
-      x = dropout(x, p=0.5, training=self.training)
-      x = self.conv3(x, edge_index)
     return x
       
   
