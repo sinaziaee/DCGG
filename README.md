@@ -1,7 +1,6 @@
 # DCGG
 
-MoRGH is used in movie recommender systems. This is our implementation of MoRGH to predict the movies which 
-a person can be interested based on a hybrid approach of collaborative filtering and content based.
+DCGG is a novel approach towards drug combination prediction utilizing graph neural networks and graph auto encoders. The approach comprises of 6 different models and 7 different graphs. The graphs are augmented with differenet node features including drug indicatinos, drug side-effects, and node2vec drug features extracted from drug-drug-interaction network.
 
 Submitted to Briefings in Bioinformatics
 
@@ -9,9 +8,9 @@ Submitted to Briefings in Bioinformatics
 
 Authors: S.S. Ziaee, H. Rahmani, M. Tabatabaei, Anna H.C. Vlot, Andreas Bender
 
-MoRGH: main steps: 
+DCGG main steps: 
 
-![MoRGH main Steps](https://raw.githubusercontent.com/sinaziaee/movie_recommender/master/figs/MoRGH_Overall.png)
+![DCGG main Steps](https://raw.githubusercontent.com/sinaziaee/DCGG/master/DCGG_overall.jpg)
 
 
 Notes:
